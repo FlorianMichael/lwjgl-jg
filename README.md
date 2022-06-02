@@ -10,15 +10,24 @@ import de.florianmichael.lwjgljg.internal.Direction;
 public class Test {
 
     public static void main(String[] args) {
-        for (Device jg_device : JG22C.jg_devices()) {
-            if (jg_device.isInDirection(Direction.LEFT))
-                System.out.println("Joystick is to left");
-            
-            if (jg_device.isKeyDown(JG22C.JG_GAMEPAD_BUTTON_A))
-                System.out.println("Gamepad button a is down");
+        for (Device jg_device : JG22C.devices()) {
+            if (jg_device.isInDirection(Direction.UP)) {
+                // 
+            }
 
-            System.out.println("Joystick is Gamepad: " + jg_device.isGamepad());
+            if (jg_device.isKeyDown(JG22C.JG_GAMEPAD_BUTTON_A)) {
+                System.out.println("A is pressed");
+            }
         }
+
+        //
+
+        final Device joystick = JG22C.device(JG22C.JG_JOYSTICK_1);
+
+        if (joystick == null) return;
+
+        if (joystick.isInDirection(Direction.RIGHT))
+            System.out.println("Joystick is right");
     }
 }
 ```

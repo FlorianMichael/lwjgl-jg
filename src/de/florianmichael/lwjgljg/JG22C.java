@@ -41,13 +41,21 @@ public class JG22C {
 
     public static final int JG_SUCCESS = 1;
 
-    public static List<Device> jg_devices() {
+    public static List<Device> devices() {
         List<Device> it = new ArrayList<>();
         
-        for (int i = JG_JOYSTICK_1; i < JG_JOYSTICK_16; i++)
-            if (GLFW.glfwJoystickPresent(i))
-                it.add(new Device(GLFW.glfwGetJoystickName(i), GLFW.glfwJoystickIsGamepad(i), i));
-        
+        for (int i = JG_JOYSTICK_1; i < JG_JOYSTICK_16; i++) {
+            final Device device = device(i);
+            if (device != null)
+                it.add(device);
+        }
+
         return it;
+    }
+
+    public static Device device(final int i) {
+        if (GLFW.glfwJoystickPresent(i))
+            return new Device(GLFW.glfwGetJoystickName(i), GLFW.glfwJoystickIsGamepad(i), i);
+        return null;
     }
 }
